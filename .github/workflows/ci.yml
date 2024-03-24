@@ -94,7 +94,7 @@ jobs:
         run: npm i yarn -g && yarn
         
       - name: 🔧 Valida tipagens
-        run: yarn check-types
+        run: yarn type-check
 
   test:
     runs-on: ubuntu-latest
@@ -155,40 +155,3 @@ jobs:
       - name: 📦 Builda o projeto
         run: yarn build
         
-  sonarcloud:
-    name: sonarcloud
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    # TO DO: adicionar variaveis de ambiente conforme necessario
-    # env:
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: 📬 Caching
-        uses: actions/cache@v3
-        with:
-          path: |
-            ${{ github.workspace }}/node_modules
-            ${{ github.workspace }}/dist
-          key: ${{ runner.os }}-vite-${{ hashFiles('*/yarn.lock') }}-${{ hashFiles('/.{js,jsx,ts,tsx}') }}
-          restore-keys: |
-            ${{ runner.os }}-vite-${{ hashFiles('**/yarn.lock') }}-
-
-      - name: 🧰 Instala bibliotecas e dependências
-        run: npm i -g yarn && yarn
-
-      # ------------ TO DO: ADICIONAR BIBLIOTECAS DE ESTILIZACAO DE CODIGO (ES-LINT E PRETTIER) --------------
-      # - name: 📜 Relatório do eslint
-      #   run: npx eslint -f json -o reports/eslint-report.json src || true
-
-      - name: 🧪 Testes e cobertura
-        run: VITEST_REPORTERS=vitest-sonar-reporter yarn test --coverage
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
