@@ -5,8 +5,8 @@ const Authorization = localStorage.getItem("token")
   : ""
 
 export default axios.create({
-  baseURL: "https://2023-2-sindpol-gateway.vercel.app/api",
-  //baseURL: "http://localhost:8001/",
+  baseURL: "api-p1--api-gateway--njw77y9vvqrk.code.run",
+  //baseURL: "http://localhost:8002/",
   headers: {
     "Content-Type": "application/json",
     Authorization,
