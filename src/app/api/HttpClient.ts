@@ -5,7 +5,7 @@ const Authorization = localStorage.getItem("token")
   : ""
 
 export default axios.create({
-  baseURL: "https://sindpol-gateway-5b358c57af52.herokuapp.com/api/",
+  baseURL: "https://2023-2-sindpol-gateway.vercel.app",
   //baseURL: "http://localhost:8001/",
   headers: {
     "Content-Type": "application/json",
